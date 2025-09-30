@@ -15,7 +15,7 @@ const datesOverlap = (existingStart, existingEnd, newStart, newEnd) => {
     );
 };
 
-const checkAvailability = async (req, res) => {
+export const checkAvailability = async (req, res) => {
     try {
         const { vehicleId, startDate, endDate } = req.query;
         if (!vehicleId || !startDate || !endDate) {
@@ -81,7 +81,7 @@ const checkAvailability = async (req, res) => {
 
 
 
-const createBooking = async (req, res) => {
+export const createBooking = async (req, res) => {
     try {
         const { firstName, lastName, vehicleId, startDate, endDate } = req.body;
 
@@ -183,4 +183,3 @@ const createBooking = async (req, res) => {
     }
 };
 
-export { checkAvailability, createBooking };

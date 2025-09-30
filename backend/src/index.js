@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import { vehicleRoutes } from './routes/vehicle.routes.js';
-import { bookingRoutes } from './routes/booking.routes.js';
+import vehicleRoutes  from './routes/vehicle.routes.js';
+import bookingRoutes from './routes/booking.routes.js';
 
 dotenv.config();
 const app = express()

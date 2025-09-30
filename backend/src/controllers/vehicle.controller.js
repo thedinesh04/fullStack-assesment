@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
-const getVehicleTypes = async (req, res) => {
+export const getVehicleTypes = async (req, res) => {
     try {
         const { wheels } = req.query;
         if(!wheels){
@@ -38,7 +38,7 @@ const getVehicleTypes = async (req, res) => {
 }
 
 
-const getVehiclesByType = async (req, res) => {
+export const getVehiclesByType = async (req, res) => {
     try {
         const { typeId } = req.query;
         if(!typeId){
@@ -72,7 +72,3 @@ const getVehiclesByType = async (req, res) => {
     }
 }
 
-export {
-    getVehicleTypes,
-    getVehiclesByType
-}
