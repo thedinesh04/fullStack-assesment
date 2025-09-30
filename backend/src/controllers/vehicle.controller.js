@@ -22,7 +22,7 @@ export const getVehicleTypes = async (req, res) => {
                 wheels: true
             },
             orderBy: {
-                name : 'asc'
+                id : 'asc'
             }
         });
         res.json(vehicleTypes);
