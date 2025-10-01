@@ -32,7 +32,6 @@ const VehicleTypeStep = ({
             try {
                 setLoading(true)
                 const types = await getVehicleTypes(formData.wheels)
-                console.log('Fetched vehicle types:', types)
                 setVehicleTypes(types)
                 setLoading(false)
             } catch (err) {
@@ -45,6 +44,18 @@ const VehicleTypeStep = ({
             fetchVehicleTypes()
         }
     }, [formData.wheels])
+
+    // Reset vehicleTypeId if it doesn't match current wheel selection
+    useEffect(() => {
+        if (formData.vehicleTypeId && vehicleTypes.length > 0) {
+            const isValidType = vehicleTypes.some(
+                (type) => type.id === formData.vehicleTypeId,
+            )
+            if (!isValidType) {
+                setVehicleTypeId(null)
+            }
+        }
+    }, [vehicleTypes, formData.vehicleTypeId])
 
     const handleNext = () => {
         setError('')

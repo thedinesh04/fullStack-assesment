@@ -14,26 +14,46 @@ const NameStep = ({ formData, onNext, stepNumber, totalSteps }) => {
     const [lastName, setLastName] = useState(formData.lastName || '')
     const [error, setError] = useState('')
 
+    const validateName = (name, fieldName) => {
+        // Checking if empty
+        if (!name.trim()) {
+            return `Please enter your ${fieldName}`
+        }
+
+        // Checking minimum length
+        if (name.trim().length < 2) {
+            return `${fieldName} must be at least 2 characters`
+        }
+
+        // Checking if contains only valid characters (letters, spaces, hyphens, apostrophes)
+        const nameRegex = /^[a-zA-Z\s'-]+$/
+        if (!nameRegex.test(name.trim())) {
+            return `${fieldName} should contain only letters`
+        }
+
+        // Checking if contains at least 2 letters
+        const letterCount = (name.match(/[a-zA-Z]/g) || []).length
+        if (letterCount < 2) {
+            return `${fieldName} must contain at least 2 letters`
+        }
+
+        return null
+    }
+
     const handleNext = () => {
         setError('')
 
-        if (!firstName.trim()) {
-            setError('Please enter your first name')
+        // Validate first name
+        const firstNameError = validateName(firstName, 'First name')
+        if (firstNameError) {
+            setError(firstNameError)
             return
         }
 
-        if (!lastName.trim()) {
-            setError('Please enter your last name')
-            return
-        }
-
-        if (firstName.trim().length < 2) {
-            setError('First name must be at least 2 characters')
-            return
-        }
-
-        if (lastName.trim().length < 2) {
-            setError('Last name must be at least 2 characters')
+        // Validate last name
+        const lastNameError = validateName(lastName, 'Last name')
+        if (lastNameError) {
+            setError(lastNameError)
             return
         }
 

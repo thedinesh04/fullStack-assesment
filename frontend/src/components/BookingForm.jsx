@@ -32,7 +32,33 @@ const BookingForm = ({ onSuccess }) => {
     const handleNext = async (stepData) => {
         setError('')
 
-        const updatedData = { ...formData, ...stepData }
+        let updatedData = { ...formData, ...stepData }
+
+        // Clear dependent fields when wheels selection changes
+        if (
+            stepData.wheels !== undefined &&
+            stepData.wheels !== formData.wheels
+        ) {
+            updatedData = {
+                ...updatedData,
+                vehicleTypeId: null,
+                vehicleId: null,
+                startDate: null,
+                endDate: null,
+            }
+        }
+
+        // Clear dependent fields when vehicle type changes
+        if (
+            stepData.vehicleTypeId !== undefined &&
+            stepData.vehicleTypeId !== formData.vehicleTypeId
+        ) {
+            updatedData = {
+                ...updatedData,
+                vehicleId: null,
+            }
+        }
+
         setFormData(updatedData)
 
         // If this is the last step, submit the booking
